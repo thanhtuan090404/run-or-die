@@ -10,7 +10,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private Transform chunkParent; 
     [SerializeField] private float moveSpeed = 5f; // Speed at which the chunks move towards the player
 
-
+    private Camera mainCamera; 
     List<GameObject> chunks = new List<GameObject>(); // List to hold references to the spawned chunks
 
 
@@ -18,7 +18,9 @@ public class LevelGenerator : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        mainCamera = Camera.main; // cache 1 lần duy nhất
         SpawnStartingChunks();
+
 
     }
     // Update is called once per frame
@@ -29,22 +31,21 @@ public class LevelGenerator : MonoBehaviour
 
     private void MoveChunks()
     {
+        float despawnZ = mainCamera.transform.position.z - chunkLength;
 
-       for (int i = 0; i < chunks.Count; i++)
+        for (int i = 0; i < chunks.Count; i++)
         {
-                GameObject chunk = chunks[i];
-                chunks[i].transform.Translate(Vector3.back * moveSpeed * Time.deltaTime); // Move the chunk towards the player
-                if (chunk.transform.position.z <= Camera.main.transform.position.z - chunkLength) // Check if the chunk has moved past the camera
-                {
-                chunks.Remove(chunk);
-                Destroy(chunk); // Destroy the chunk
-                SpawnChunks();
-                break;
-            }
-            
-
+            chunks[i].transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
         }
-       
+
+        // chunk cũ nhất luôn ở đầu list
+        if (chunks.Count > 0 && chunks[0].transform.position.z <= despawnZ)
+        {
+            GameObject oldChunk = chunks[0];
+            chunks.RemoveAt(0);
+            Destroy(oldChunk);
+            SpawnChunks();
+        }
     }
 
     void SpawnStartingChunks()
