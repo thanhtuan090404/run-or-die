@@ -206,10 +206,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chunk
   spearPrefabs: {fileID: 7304190014890362637, guid: a12c1357d070f344f928eec445ac9ec7, type: 3}
+  crystalPrefabs: {fileID: 8519801248002842861, guid: 9ebf621a0bea3d64687ce553b7865fb3, type: 3}
+  coinPrefabs: {fileID: 5982505077646145504, guid: 39dc76bfbbd608e4c9cd0cecdd04a092, type: 3}
+  crystalSpawnChance: 0.2
+  coinSpawnChance: 0.5
+  coinSeparationLength: 2
   lanes:
-  - -2.5
+  - -3
   - 0
-  - 2.5
+  - 3
+  yOffset: 0.91
 --- !u!1001 &169122074101802186
 PrefabInstance:
   m_ObjectHideFlags: 0
