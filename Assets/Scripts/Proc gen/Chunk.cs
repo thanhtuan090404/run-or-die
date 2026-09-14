@@ -14,11 +14,19 @@ public class Chunk : MonoBehaviour
     [SerializeField] float[] lanes =  { -2.5f, 0f, 2.5f }; // mảng vị trí spawn vật thể 
     [SerializeField] private float yOffset = 0.91f; // khoảng cách spawn vật thể theo trục y
 
+    private bool isSafe = false;   // thêm dòng này
+
+    public void SetSafe(bool safe)  // thêm hàm này
+    {
+        isSafe = safe;
+    }
+
     List<int> availableLanes = new List<int> { 0, 1, 2 }; // danh sách các lane có sẵn
 
 
-    void Start()
+    public void Initialize()       
     {
+        if (isSafe) return;
         SpawnSpear();
         SpawnCrystal();
         SpawnCoin();

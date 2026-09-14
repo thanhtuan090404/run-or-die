@@ -9,7 +9,10 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private float chunkLength = 10f; // Length of each chunk along the z-axis
     [SerializeField] private Transform chunkParent; 
     [SerializeField] private float moveSpeed = 5f; // Speed at which the chunks move towards the player
+    [SerializeField] private float minMoveSpeed = 2f; // Minimum speed at which the chunks move towards the player
+    [SerializeField] private int safeChunkCount = 3;   // 3 chunk đầu không có spear
 
+    private int chunkSpawnedCount = 0;
     private Camera mainCamera; 
     List<GameObject> chunks = new List<GameObject>(); // List to hold references to the spawned chunks
 
@@ -28,7 +31,14 @@ public class LevelGenerator : MonoBehaviour
     {
         MoveChunks();
     }
-
+    public void ChangeChunkMoveSpeed(float speedAmount)
+    {
+        moveSpeed += speedAmount;
+        if (moveSpeed < minMoveSpeed)
+        {
+            moveSpeed = minMoveSpeed;
+        }
+    }
     private void MoveChunks()
     {
         float despawnZ = mainCamera.transform.position.z - chunkLength;
@@ -62,9 +72,13 @@ public class LevelGenerator : MonoBehaviour
     {
         float spawnPositionZ = CalculateSpawnPositionZ();
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y, spawnPositionZ);
+        GameObject newChunk = Instantiate(ChunkPrefabs, spawnPosition, Quaternion.identity, chunkParent);
 
-        GameObject newChunk = Instantiate(ChunkPrefabs, spawnPosition, Quaternion.identity, chunkParent); // khởi tạo phần tử chunk mới và đặt nó làm con của chunkParent
-        chunks.Add(newChunk); // Add the new chunk to the list
+        Chunk chunkScript = newChunk.GetComponent<Chunk>();
+        chunkScript.SetSafe(chunkSpawnedCount < safeChunkCount);   // báo cho chunk biết
+        chunkScript.Initialize();
+        chunks.Add(newChunk);
+        chunkSpawnedCount++;
     }
 
     float CalculateSpawnPositionZ()

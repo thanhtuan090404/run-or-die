@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8767005603042439022}
   - component: {fileID: 4685546684963953956}
   - component: {fileID: 5379754703163712512}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: drum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7029514321399589738}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,6 +201,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0a5684da0d7be1e40bcf1aa52df61aa6, type: 3}
       propertyPath: m_Name
       value: Drum
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0a5684da0d7be1e40bcf1aa52df61aa6, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
