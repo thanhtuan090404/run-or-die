@@ -38,6 +38,7 @@ public class LevelGenerator : MonoBehaviour
         {
             moveSpeed = minMoveSpeed;
         }
+        Physics.gravity = new Vector3(Physics.gravity.x , Physics.gravity.y , Physics.gravity.z - speedAmount); // điều chỉnh trọng lực dựa trên tốc độ di chuyển
     }
     private void MoveChunks()
     {

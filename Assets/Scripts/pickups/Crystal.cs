@@ -2,9 +2,15 @@ using UnityEngine;
 
 public class Crystal : Pickup
 {
+    [SerializeField] private float adjustChangeMoveSpeedAmount = 3f;
+
+    LevelGenerator levelGenerator;
+    void Start()
+    {
+        levelGenerator = FindObjectOfType<LevelGenerator>();
+    }
     protected override void OnPickup()
     {
-        // Add logic for what happens when the crystal is picked up
-        Debug.Log("Crystal picked up!");
+        levelGenerator.ChangeChunkMoveSpeed(adjustChangeMoveSpeedAmount); 
     }
 }
